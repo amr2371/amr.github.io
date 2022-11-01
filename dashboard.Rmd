@@ -30,7 +30,7 @@ instacart %>%
   mutate(
     text_label = str_c("Added to cart order: ", add_to_cart_order, "\nReordered:", reordered)
   ) %>% 
-  plot_ly(x = ~days_since_prior_order, type = "scatter", text = ~text_label) %>% 
+  plot_ly(x = ~days_since_prior_order, type = "scatter", text = ~text_label, mode = "markers") %>% 
   layout(title = "Days Since Ordering Okra",
          xaxis = list(title = "Number of Days Since Prior Okra Order"),
          yaxis = list(title = "Count"))
