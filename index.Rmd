@@ -31,3 +31,17 @@ Let's link to useful tools for data sceince:
 
 ## Link to page within the site
 [About me](about.html)
+
+## Quarterly Results {.tabset}
+
+### By Product
+
+This is my first tab and I can do stuff
+
+### By Region
+
+This is my second tab and it does other stuff
+
+# This is a new section
+
+and it's really great
