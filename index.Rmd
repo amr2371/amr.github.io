@@ -12,29 +12,4 @@ output:
 Hi, I am Allison, a second year MS Biostatistics student at Columbia University! I have an undergraduate degree in Mathematics from Amherst College.
 
 ## Resume
-
-![](./allison_resume.html)
-
-## Here's a subsection
-
-## Links to other websites
-Let's link to useful tools for data sceince:
-* [Google](https://google.com)
-* [P8105](https://p8105.com)
-
-## Local image
-![](path for image)
-
-## Link to page within the site
-[About me](about.html)
-
-## Quarterly Results {.tabset}
-
-### By Product
-
-This is my first tab and I can do stuff
-
-### By Region
-
-This is my second tab and it does other stuff
-
+[Click here for resume](./allison_resume.html)
