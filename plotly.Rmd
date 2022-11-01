@@ -14,80 +14,55 @@ We're going to look at at the NYC Airbnb data
 library(tidyverse)
 library(p8105.datasets)
 library(plotly)
-```
-
-```{r}
-data("nyc_airbnb")
-
-nyc_airbnb = 
-  nyc_airbnb %>% 
-  mutate(rating = review_scores_location / 2) %>% 
-  select(neighbourhood_group, neighbourhood, rating, price, room_type, lat, long) %>% 
-  filter(
-    neighbourhood_group == "Manhattan",
-    price %in% 100:500,
-    room_type == "Entire home/apt"
-  ) %>% 
-  drop_na(rating)
+data("instacart")
 ```
 
 # Plotly plots
 
-## scatterplot
+## Scatter
 
 ```{r}
-nyc_airbnb %>% 
-  mutate(text_label = str_c("Price: $", price, "\nRating:", rating)) %>% 
-  plot_ly(
-    x = ~lat, y = ~long, color = ~price, text = ~text_label, alpha = 0.5,
-  type = "scatter", mode="markers")
+instacart %>% 
+ filter(product_name == "Okra") %>% 
+  mutate(
+    text_label = str_c("Added to cart order: ", add_to_cart_order, "\nReordered:", reordered)
+  ) %>% 
+  plot_ly(x = ~days_since_prior_order, type = "scatter", text = ~text_label) %>% 
+  layout(title = "Days Since Ordering Okra",
+         xaxis = list(title = "Number of Days Since Prior Okra Order"),
+         yaxis = list(title = "Count"))
 ```
 
-## boxplot
+## Boxplot
 
 ```{r}
-nyc_airbnb %>% 
-  mutate(neighbourhood = fct_reorder(neighbourhood, price)) %>% 
-  plot_ly(
-    y = ~price, x = ~neighbourhood, color = ~neighbourhood,
-    type = "box", colors = "viridis"
-  )
-```
-
-## violin
-
-```{r}
-nyc_airbnb %>% 
-  mutate(neighbourhood = fct_reorder(neighbourhood, price)) %>% 
-  plot_ly(
-    y = ~price, x = ~neighbourhood, color = ~neighbourhood,
-    type = "violin", colors = "viridis"
-  )
+instacart %>% 
+  filter(department == "snacks",
+         aisle == "chips pretzels",
+         str_detect(product_name, "Barbeque")) %>% 
+  mutate(product_name = forcats::fct_reorder(product_name, order_hour_of_day)) %>% 
+  plot_ly(x = ~product_name, y = ~order_hour_of_day, type = "box",
+          color = ~product_name, colors = "viridis") %>% 
+  layout(title = "Hour of the Day Barbeque Chips Are Ordered",
+         xaxis = list(title = "Product Name"),
+         yaxis = list(title = "Hour of Day"))
 ```
 
 
 ## bar plot
 
 ```{r}
-nyc_airbnb %>% 
-  count(neighbourhood) %>% 
-  mutate(neighbourhood=fct_reorder(neighbourhood, n)) %>% 
-  plot_ly(
-    x = ~neighbourhood, y = ~n, color = ~neighbourhood, type = "bar", colors = "viridis"
-  )
+instacart %>% 
+  filter(department == "snacks",
+         aisle == "chips pretzels",
+         str_detect(product_name, "Barbeque Potato Chips")) %>% 
+  mutate(product_name = forcats::fct_reorder(product_name, order_hour_of_day)) %>% 
+   count(product_name) %>% 
+  plot_ly(x = ~product_name, y = ~n, type = "bar",
+          color = ~product_name, colors = "viridis") %>% 
+  layout(title = "Number of each Barbeque Potato Chips Ordered",
+         xaxis = list(title = "Product Name"),
+         yaxis = list(title = "Number ordered"))
 ```
-
-
-## ggplotly
-
-```{r}
-ggp_scatter = 
-  nyc_airbnb %>% 
-  ggplot(aes(x = lat, y = long, color= price)) +
-  geom_point()
-
-ggplotly(ggp_scatter)
-```
-
 
 

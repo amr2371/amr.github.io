@@ -1,5 +1,5 @@
 ---
-title: "My awesome website"
+title: "Allison's website"
 output: 
   html_document:
     toc: true
@@ -7,19 +7,15 @@ output:
     theme: cerulean
 ---
 
-# This is Allison's awesome website
+## Introduction
 
-What if I add some text here ...?
+Hi, I am Allison, a second year MS Biostatistics student at Columbia University! I have an undergraduate degree in Mathematics from Amherst College.
 
-![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
+## Resume
+
+![](./allison_resume.html)
 
 ## Here's a subsection
-
-And here's some additional text...
-
-```{r}
-rnorm(10)
-```
 
 ## Links to other websites
 Let's link to useful tools for data sceince:
@@ -42,6 +38,3 @@ This is my first tab and I can do stuff
 
 This is my second tab and it does other stuff
 
-# This is a new section
-
-and it's really great
