@@ -16,6 +16,7 @@ library(flexdashboard)
 
 ```{r}
 data("instacart")
+instacart <- instacart %>% drop_na(product_name)
 ```
 
 Column {data-width=650}
@@ -29,7 +30,7 @@ instacart %>%
   mutate(
     text_label = str_c("Added to cart order: ", add_to_cart_order, "\nReordered:", reordered)
   ) %>% 
-  plot_ly(x = ~days_since_prior_order, type = "bar", text = ~text_label) %>% 
+  plot_ly(x = ~days_since_prior_order, type = "scatter", text = ~text_label) %>% 
   layout(title = "Days Since Ordering Okra",
          xaxis = list(title = "Number of Days Since Prior Okra Order"),
          yaxis = list(title = "Count"))
@@ -59,12 +60,13 @@ instacart %>%
 instacart %>% 
   filter(department == "snacks",
          aisle == "chips pretzels",
-         str_detect(product_name, "Barbeque")) %>% 
+         str_detect(product_name, "Barbeque Potato Chips")) %>% 
   mutate(product_name = forcats::fct_reorder(product_name, order_hour_of_day)) %>% 
-  plot_ly(x = ~product_name, y = ~order_dow, type = "histogram",
+   count(product_name) %>% 
+  plot_ly(x = ~product_name, y = ~n, type = "bar",
           color = ~product_name, colors = "viridis") %>% 
-  layout(title = "Day of the week Barbeque Chips Are Ordered",
+  layout(title = "Number of each Barbeque Potato Chips Ordered",
          xaxis = list(title = "Product Name"),
-         yaxis = list(title = "Day of the week")) 
+         yaxis = list(title = "Number ordered")) 
 ```
 
